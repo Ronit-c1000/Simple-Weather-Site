@@ -1,38 +1,82 @@
-.App {
+body{
+  margin: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("./components/Images/Bg_image.jpg");
+  background-size: cover;
+}
+
+.input_box{
+  border: 1px solid #2c63aa;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: auto;    
+  width: 300px; 
+  margin: 25px auto; 
+  border-radius: 50px;
+  box-shadow: 2px 2px rgba(189, 188, 188, 0.5) ;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2); 
+}
+
+.input{
+  margin:10px ;
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255,0.1);
+  border-radius: 20px;
+  /* box-shadow: 2px 2px  ; */
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2); 
+}
+
+input::placeholder { 
+  color: rgb(197, 229, 250);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button {
+  background: transparent;
+  border: none;           
+  padding: 10px;          
+  cursor: pointer; 
+  font-size: 25px;
+  color: rgb(172, 172, 225);
+  cursor: pointer; 
+  border-radius: 50%;
+  display: inline-flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Info_box {
+  display: flex;          
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;    
+  width: 300px;
+  margin: auto;
+  text-align: center;     
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2); 
+  border-radius: 20px;                  
+  padding: 20px;                        
+}
+img{
+  height: 150px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cards{
+  position: fixed!important; 
+  bottom: 0!important; 
+  width: 100%!important;
+  z-index: 1000!important;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2); 
+  padding: 1rem;
+}
+.card_body{
+  backdrop-filter: blur(10px)!important;
+  background: rgba(255, 255, 255, 0.2)!important; 
 }

@@ -1,0 +1,137 @@
+ ///L- cards ///
+ 
+ <div className="cards">
+    <Row xs={1} md={3} className="g-4">
+      {Array.from({ length: 1 }).map((_, idx) => (
+        <Col key={idx}>
+          <Card className='card_body'>
+              <Card.Title>Mumbai</Card.Title>
+              
+          </Card>
+        </Col>
+      ))}
+      {Array.from({ length: 1 }).map((_, idx) => (
+        <Col key={idx}>
+          <Card className='card_body'>
+              <Card.Title>Delhi</Card.Title>
+          </Card>
+        </Col>
+      ))}
+      
+      {Array.from({ length: 1 }).map((_, idx) => (
+        <Col key={idx}>
+          <Card className='card_body'>
+              <Card.Title>Bangalore</Card.Title>
+              <Card.Text>
+               
+              </Card.Text>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+    </div>
+
+
+
+
+
+   // adding cards //
+
+    function Myapp() {
+  const [search, setSearch] = useState('');
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const [cityWeather, setCityWeather] = useState([]);
+  const apiKey = 'e64fc85dbaaddc782aa9e937902aecf1';
+
+  // List of cities for cards
+  const cities = ['Mumbai', 'Delhi', 'pune'];
+
+  useEffect(() => {
+    // Fetch weather data for all cities when the component loads
+    const fetchCityWeather = async () => {
+      const cityData = await Promise.all(
+        cities.map(async (city) => {
+          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+          const json = await res.json();
+          return {
+            name: city,
+            temp: json.main?.temp,
+            description: json.weather?.[0]?.description,
+          };
+        })
+      );
+      setCityWeather(cityData);
+    };
+
+    fetchCityWeather();
+  }, []);
+
+  const handleInput = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const myFunction = async () => {
+    const get = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${apiKey}&units=metric`);
+    const jsonData = await get.json();
+    setData(jsonData);
+
+    if (search === '') {
+      setError('Please enter a city or country');
+    } else if (jsonData.cod === '404') {
+      setError('Please enter a valid Name');
+    } else {
+      setError('');
+    }
+    setSearch('');
+  };
+
+  return (
+    <>
+      <div className="input_box">
+        <input type="text" value={search} placeholder="Enter city or country" className="input" onChange={handleInput} />
+        <button onClick={myFunction}>Search</button>
+      </div>
+
+      <div className="Info_box">
+        {error ? (
+          <div>
+            <p>{error}</p>
+          </div>
+        ) : (
+          ''
+        )}
+
+        {data && data.weather ? (
+          <div>
+            <h2>{data.name}</h2>
+            <h4>Temperature - {data.main.temp}°C</h4>
+            <h4>Humidity - {data.main.humidity}</h4>
+            <h4>{data.weather[0].description}</h4>
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
+
+      <div className="cards">
+        <Row xs={1} md={3} className="g-4">
+          {cityWeather.map((city, idx) => (
+            <Col key={idx}>
+              <Card className="card_body">
+                <Card.Title>{city.name}</Card.Title>
+                <Card.Text>
+                  Temp: {city.temp ? `${city.temp}°C` : 'Loading...'}
+                  <br />
+                  {city.description}
+                </Card.Text>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
+    </>
+  );
+}
+
+export default Myapp;
